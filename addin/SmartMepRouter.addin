@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>Smart MEP Router</Name>
+    <Assembly>SmartMepRouter\SmartMepRouter.Revit.dll</Assembly>
+    <AddInId>B6A56BC5-3F45-4DC3-810A-705E3CF0CA54</AddInId>
+    <FullClassName>SmartMepRouter.Revit.App</FullClassName>
+    <VendorId>EASEMEP</VendorId>
+    <VendorDescription>Smart MEP Router - Automated Detour Engine</VendorDescription>
+  </AddIn>
+</RevitAddIns>

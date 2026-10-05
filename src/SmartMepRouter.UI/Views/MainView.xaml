@@ -1,0 +1,175 @@
+<Window x:Class="SmartMepRouter.UI.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SmartMepRouter.UI.ViewModels"
+        mc:Ignorable="d"
+        Title="⚡ Smart MEP Router – Auto Detour Engine"
+        Width="440" Height="560" MinWidth="420" MinHeight="520"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource Brush.Bg.App}"
+        Foreground="{DynamicResource Brush.Text.Primary}"
+        FontFamily="Segoe UI, Tahoma, sans-serif"
+        FontSize="13">
+
+  <Window.Resources>
+    <!-- Scoped Theme Tokens per Rule R-A7 -->
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/SmartMepRouter.UI;component/Themes/Tokens.Dark.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+
+      <!-- Standard Button Style -->
+      <Style x:Key="EngineeringButton" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Text.Primary}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush.Border.Strong}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="10,4" />
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="Button">
+              <Border x:Name="border"
+                      Background="{TemplateBinding Background}"
+                      BorderBrush="{TemplateBinding BorderBrush}"
+                      BorderThickness="{TemplateBinding BorderThickness}"
+                      CornerRadius="6">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+              </Border>
+              <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                  <Setter TargetName="border" Property="Background" Value="{DynamicResource Brush.Surface.Hover}" />
+                  <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Brush.Accent.Primary}" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                  <Setter TargetName="border" Property="Opacity" Value="0.45" />
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <!-- Primary Action Button Style -->
+      <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource EngineeringButton}">
+        <Setter Property="Background" Value="{DynamicResource Brush.Accent.Primary}" />
+        <Setter Property="Foreground" Value="#090A0D" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="BorderThickness" Value="0" />
+      </Style>
+    </ResourceDictionary>
+  </Window.Resources>
+
+  <Grid Margin="16">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" /> <!-- 1. Connectors -->
+      <RowDefinition Height="Auto" /> <!-- 2. Obstacles -->
+      <RowDefinition Height="Auto" /> <!-- 3. Preferences -->
+      <RowDefinition Height="*" />    <!-- Status Log -->
+      <RowDefinition Height="Auto" /> <!-- Footer -->
+    </Grid.RowDefinitions>
+
+    <!-- SECTION 1: CONNECTORS -->
+    <StackPanel Grid.Row="0" Margin="0,0,0,16">
+      <TextBlock Text="1  CONNECTORS" FontWeight="SemiBold" FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,8" />
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="12" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0">
+          <Button x:Name="PickStartButton" Content="Pick Start Connector" Style="{StaticResource EngineeringButton}" Click="PickStart_Click" />
+          <TextBlock Text="{Binding StartConnectorText}" FontFamily="Cascadia Mono, Consolas, monospace" FontSize="11" Foreground="{DynamicResource Brush.Text.Tertiary}" Margin="2,4,0,0" TextTrimming="CharacterEllipsis" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="2">
+          <Button x:Name="PickEndButton" Content="Pick End Connector" Style="{StaticResource EngineeringButton}" Click="PickEnd_Click" />
+          <TextBlock Text="{Binding EndConnectorText}" FontFamily="Cascadia Mono, Consolas, monospace" FontSize="11" Foreground="{DynamicResource Brush.Text.Tertiary}" Margin="2,4,0,0" TextTrimming="CharacterEllipsis" />
+        </StackPanel>
+      </Grid>
+      <Separator Margin="0,12,0,0" Background="{DynamicResource Brush.Border.Default}" />
+    </StackPanel>
+
+    <!-- SECTION 2: OBSTACLE FILTERING -->
+    <StackPanel Grid.Row="1" Margin="0,0,0,16">
+      <TextBlock Text="2  OBSTACLE FILTERING" FontWeight="SemiBold" FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,8" />
+      <Grid Margin="0,0,0,8">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <CheckBox Grid.Row="0" Grid.Column="0" Content="Structural Columns" IsChecked="{Binding IncludeColumns}" Margin="0,4" Foreground="{DynamicResource Brush.Text.Primary}" />
+        <CheckBox Grid.Row="0" Grid.Column="1" Content="Shear / Core Walls" IsChecked="{Binding IncludeWalls}" Margin="0,4" Foreground="{DynamicResource Brush.Text.Primary}" />
+        <CheckBox Grid.Row="1" Grid.Column="0" Content="Structural Framing" IsChecked="{Binding IncludeFraming}" Margin="0,4" Foreground="{DynamicResource Brush.Text.Primary}" />
+        <CheckBox Grid.Row="1" Grid.Column="1" Content="Ceiling Grid" IsChecked="{Binding IncludeCeilings}" Margin="0,4" Foreground="{DynamicResource Brush.Text.Primary}" />
+      </Grid>
+
+      <DockPanel LastChildFill="False" Margin="0,4,0,0">
+        <TextBlock Text="Clearance Margin" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Text.Secondary}" />
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+          <TextBox Text="{Binding ClearanceMarginMm, UpdateSourceTrigger=PropertyChanged}" Width="70" Height="28" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Padding="6,2" Background="{DynamicResource Brush.Surface.Default}" Foreground="{DynamicResource Brush.Text.Primary}" BorderBrush="{DynamicResource Brush.Border.Default}" />
+          <TextBlock Text="mm" VerticalAlignment="Center" Margin="6,0,0,0" Foreground="{DynamicResource Brush.Text.Tertiary}" />
+        </StackPanel>
+      </DockPanel>
+      <Separator Margin="0,12,0,0" Background="{DynamicResource Brush.Border.Default}" />
+    </StackPanel>
+
+    <!-- SECTION 3: ROUTING GEOMETRY PREFERENCES -->
+    <StackPanel Grid.Row="2" Margin="0,0,0,12">
+      <TextBlock Text="3  ROUTING GEOMETRY PREFERENCES" FontWeight="SemiBold" FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,8" />
+
+      <DockPanel Margin="0,2,0,6">
+        <TextBlock Text="Duct Shape" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Text.Secondary}" />
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+          <RadioButton Content="Rectangular" IsChecked="{Binding IsRectangular}" GroupName="DuctShape" Foreground="{DynamicResource Brush.Text.Primary}" Margin="0,0,12,0" />
+          <RadioButton Content="Round" IsChecked="{Binding IsRectangular, Converter={x:Null}}" GroupName="DuctShape" IsEnabled="False" Foreground="{DynamicResource Brush.Text.Disabled}" />
+        </StackPanel>
+      </DockPanel>
+
+      <DockPanel Margin="0,4,0,4">
+        <TextBlock Text="Allowed Bends" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Text.Secondary}" />
+        <ComboBox Width="180" Height="28" DockPanel.Dock="Right" SelectedItem="{Binding SelectedAllowedBends}" Background="{DynamicResource Brush.Surface.Default}" Foreground="{DynamicResource Brush.Text.Primary}">
+          <ComboBoxItem Content="90° Orthogonal Only" IsSelected="True" />
+          <ComboBoxItem Content="45° and 90° (v1.1)" IsEnabled="False" />
+        </ComboBox>
+      </DockPanel>
+
+      <DockPanel Margin="0,4,0,4">
+        <TextBlock Text="Optimization" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Text.Secondary}" />
+        <ComboBox Width="180" Height="28" DockPanel.Dock="Right" SelectedItem="{Binding SelectedOptimization}" Background="{DynamicResource Brush.Surface.Default}" Foreground="{DynamicResource Brush.Text.Primary}">
+          <ComboBoxItem Content="Low Fitting Count (Fewer Bends)" IsSelected="True" />
+          <ComboBoxItem Content="Shortest Length" />
+        </ComboBox>
+      </DockPanel>
+      <Separator Margin="0,8,0,0" Background="{DynamicResource Brush.Border.Default}" />
+    </StackPanel>
+
+    <!-- STATUS LOG -->
+    <GroupBox Grid.Row="3" Header="STATUS LOG" Foreground="{DynamicResource Brush.Text.Tertiary}" BorderBrush="{DynamicResource Brush.Border.Default}" Margin="0,0,0,12">
+      <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <TextBox Text="{Binding StatusMessage, Mode=OneWay}" IsReadOnly="True" TextWrapping="Wrap" Background="Transparent" Foreground="{DynamicResource Brush.Text.Secondary}" BorderThickness="0" FontFamily="Cascadia Mono, Consolas, monospace" FontSize="11" Margin="4" />
+      </ScrollViewer>
+    </GroupBox>
+
+    <!-- FOOTER ACTIONS -->
+    <Grid Grid.Row="4" Height="44">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="12" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+
+      <Button Grid.Column="0" Content="Preview Path" Style="{StaticResource EngineeringButton}" Height="36" IsEnabled="{Binding CanPreview}" Click="PreviewPath_Click" />
+      <Button Grid.Column="2" Content="✓ Generate Ducts" Style="{StaticResource PrimaryButton}" Height="36" IsEnabled="{Binding CanGenerate}" Click="GenerateDucts_Click" />
+    </Grid>
+  </Grid>
+</Window>
