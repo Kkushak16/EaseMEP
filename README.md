@@ -9,6 +9,10 @@
   <img src="https://img.shields.io/badge/Paper%20Gate-GO%20(Auton%20in%20Constr)-orange?style=for-the-badge" alt="Paper Gate GO" />
 </p>
 
+<p align="center">
+  <img src="docs/images/easemep_ui.png" alt="EaseMEP UI - Smart MEP Router Interface" width="92%" />
+</p>
+
 ---
 
 ## 🚀 Overview
@@ -144,49 +148,89 @@ Evaluated across **50 procedurally generated obstacle scenes** containing struct
 
 ---
 
-## 🛠️ Build & Rapid Installation
+## 🛠️ Installation Guide
+
+For complete step-by-step instructions and troubleshooting, see the [Full Installation & Working Guide](docs/INSTALLATION_AND_USAGE.md).
 
 ### Prerequisites
-- **.NET 8 SDK** (8.0.400+) installed.
-- **Autodesk Revit 2024, 2025, 2026, or 2027**.
+- **Operating System**: Windows 10/11 (64-bit).
+- **.NET SDK**: [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) (8.0.400+).
+- **Autodesk Revit**: Revit 2024 (.NET 4.8), 2025 (.NET 8), 2026 (.NET 8), or 2027 (.NET 8).
 
-### 1-Click Install (Revit 2024–2027)
-Double-click `install.bat` or run:
+### Option 1: 1-Click Automated Installer (Fastest)
+1. Close all active Revit sessions.
+2. Double-click **`install.bat`** in the repository root.
+   - Automatically compiles all multi-targeted assemblies (`net48` and `net8.0-windows`).
+   - Registers `SmartMepRouter.addin` into `%APPDATA%\Autodesk\Revit\Addins\<Year>\`.
+   - Deploys DLLs to `%APPDATA%\Autodesk\Revit\Addins\<Year>\SmartMepRouter\`.
+
+### Option 2: PowerShell Automated Deployment
 ```powershell
+# Deploy across all installed Revit editions (2024 - 2027)
 powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -RevitVersion all
-```
-*Automatically compiles the solution and deploys add-in manifests and assemblies to `%APPDATA%\Autodesk\Revit\Addins\<ver>\`.*
 
-### Manual Build Solution
+# Or deploy to a specific version (e.g. 2027)
+powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -RevitVersion 2027
+```
+
+### Option 3: Manual Compilation & Testing
 ```powershell
-# Restore and compile across both net48 and net8.0-windows targets
+# Build solution across both net48 and net8.0-windows targets
 dotnet build SmartMepRouter.sln -c Debug
-```
 
-### Run Automated Unit Tests (82 Tests)
-```powershell
+# Run all 82 automated unit tests
 dotnet test SmartMepRouter.sln
-```
-Output:
-```
-Passed! - Failed: 0, Passed: 82, Skipped: 0, Total: 82 (net8.0)
-```
 
-### Run Scientific Benchmark Suite (53 Scenes)
-```powershell
+# Run 53-scene automated benchmark suite
 dotnet run --project tests/SmartMepRouter.Bench
 ```
 
 ---
 
+## 🎯 Step-by-Step Working Guide
+
+EaseMEP runs as a lightweight, modeless add-in directly within your active Revit session:
+
+### 1. Launch from the Ribbon
+- In Autodesk Revit, click on the **Smart MEP Router** tab in the top ribbon.
+- Click **Auto-Route** in the **Routing Engine** panel.
+- The modeless dark-themed UI window opens without locking Revit's viewport.
+
+### 2. Pick Source & Target Connectors
+- Click **Pick Start Connector** and click any equipment port (e.g., AHU discharge, pump, electrical tray).
+- Click **Pick End Connector** and click your destination (e.g., terminal unit, riser, diffuser).
+- EaseMEP reads exact 3D coordinates, orientation vector, dimensions, and system domain.
+
+### 3. Set Obstacle Filters & Clearance
+- Toggle obstacle categories: **Structural Columns**, **Structural Framing (Beams)**, **Walls**, **Pipes**, or **Cable Trays**.
+- Linked architectural and structural models are automatically transformed into host coordinates.
+- Set **Clearance Margin** (default: `25 mm` / `1 in`). The router inflates obstacles by $Clearance + Insulation + \frac{\max(w,h)}{2}$.
+
+### 4. Choose Geometry Preferences & Discipline
+- **Discipline**: Auto-detects or switch between **Duct**, **Pipe**, and **Cable Tray**.
+- **Shape**: Rectangular or Round.
+- **Allowed Bends**: **45° & 90°** (smooth detours) or **90° Only** (strict Manhattan turns).
+- **Optimization**: **Low Fitting Count** (minimizes fabrication cost) or **Shortest Length**.
+
+### 5. 3D Preview Path
+- Click **Preview Path** to compute and render a live wireframe centerline in your 3D view in under 30 ms without modifying your model.
+
+### 6. Generate Elements & 1-Click Undo
+- Click **✓ Generate Ducts** (or Pipes / Cable Trays).
+- EaseMEP creates straight runs, inserts native Revit elbows (`NewElbowFitting`), and connects to equipment in an atomic transaction.
+- Made a mistake? Press **Ctrl + Z** to cleanly roll back all generated elements in a single step with zero orphaned fittings.
+
+---
+
 ## 📖 Documentation & Guides
 
-- [Demo Walkthrough & 3-Minute Video Script](file:///d:/Antigravity/EaseMEP/docs/DEMO_GUIDE.md)
-- [Pitch Notes & Measured Scoreboard](file:///d:/Antigravity/EaseMEP/docs/PITCH_NOTES.md)
-- [System Architecture](file:///d:/Antigravity/EaseMEP/architecture.md)
-- [UI & Visual Tokens Design](file:///d:/Antigravity/EaseMEP/design.md)
-- [Product Requirements (PRD)](file:///d:/Antigravity/EaseMEP/prd.md)
-- [Phase Roadmap](file:///d:/Antigravity/EaseMEP/phases.md)
+- [Full Installation & Working Guide](docs/INSTALLATION_AND_USAGE.md) — Comprehensive user manual, multi-discipline details & troubleshooting
+- [Demo Walkthrough & Video Script](docs/DEMO_GUIDE.md) — 3-minute video presentation guide
+- [Pitch Notes & Measured Scoreboard](docs/PITCH_NOTES.md) — Value proposition and metrics
+- [System Architecture](architecture.md) — Mathematical formulations and data pipeline
+- [UI & Visual Tokens Design](design.md) — Design system specification
+- [Product Requirements (PRD)](prd.md) — Functional and non-functional requirements
+- [Phase Roadmap](phases.md) — Project milestones and phase gates
 
 ---
 

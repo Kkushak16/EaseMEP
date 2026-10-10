@@ -438,9 +438,9 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1791657904.8930829,
-    "seen": 1791657914.6294684,
-    "ast_hash": "2ea8bf00ba6d27ae6f35eaec710bf8f9",
+    "mtime": 1791664000.0473254,
+    "seen": 1791664142.0334766,
+    "ast_hash": "fb5eccaf0576b09c28d5311d17a6b70d",
     "semantic_hash": ""
   },
   "architecture.md": {
@@ -645,6 +645,18 @@
     "mtime": 1791657872.9590552,
     "seen": 1791657914.629465,
     "ast_hash": "0870357e638bb95c0e21c224bebe8233",
+    "semantic_hash": ""
+  },
+  "docs/INSTALLATION_AND_USAGE.md": {
+    "mtime": 1791663586.3465714,
+    "seen": 1791664142.0334918,
+    "ast_hash": "edbfca8a97e0c6e90bcda8f9da7aeb41",
+    "semantic_hash": ""
+  },
+  "docs/images/easemep_ui.png": {
+    "mtime": 1791663051.742656,
+    "seen": 1791664142.0335066,
+    "ast_hash": "2252a36bb9e2f1afee297e1007ed1e9a",
     "semantic_hash": ""
   }
 }
