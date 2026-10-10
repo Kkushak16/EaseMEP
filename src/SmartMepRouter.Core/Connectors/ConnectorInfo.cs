@@ -28,7 +28,10 @@ namespace SmartMepRouter.Core.Connectors
         /// <summary>Diameter in decimal feet (for round profiles).</summary>
         public double DiameterFeet { get; set; }
 
-        /// <summary>MEP System classification or name (e.g. Supply Air, Return Air).</summary>
+        /// <summary>MEP discipline category (Duct, Pipe, or CableTray).</summary>
+        public MepDiscipline Discipline { get; set; } = MepDiscipline.Duct;
+
+        /// <summary>MEP System classification or name (e.g. Supply Air, Return Air, Hydronic Supply).</summary>
         public string SystemClassification { get; set; } = string.Empty;
 
         /// <summary>Revit ElementId of the MEPSystemType, if available.</summary>
@@ -41,7 +44,7 @@ namespace SmartMepRouter.Core.Connectors
         public ConnectorInfo() { }
 
         /// <summary>Constructs a connector descriptor with explicit coordinates in decimal feet.</summary>
-        public ConnectorInfo(string id, Vec3 position, Vec3 direction, ConnectorShape shape, double widthFeet, double heightFeet, double diameterFeet)
+        public ConnectorInfo(string id, Vec3 position, Vec3 direction, ConnectorShape shape, double widthFeet, double heightFeet, double diameterFeet, MepDiscipline discipline = MepDiscipline.Duct)
         {
             Id = id;
             Position = position;
@@ -50,6 +53,7 @@ namespace SmartMepRouter.Core.Connectors
             WidthFeet = widthFeet;
             HeightFeet = heightFeet;
             DiameterFeet = diameterFeet;
+            Discipline = discipline;
         }
     }
 }

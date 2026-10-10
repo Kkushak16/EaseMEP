@@ -155,8 +155,18 @@
     <StackPanel Grid.Row="2" Margin="0,0,0,12">
       <TextBlock Text="3  ROUTING GEOMETRY PREFERENCES" FontWeight="SemiBold" FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,8" />
 
+      <!-- Discipline Selector -->
       <DockPanel Margin="0,2,0,6">
-        <TextBlock Text="Duct Shape" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Text.Secondary}" />
+        <TextBlock Text="Discipline" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Text.Secondary}" />
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+          <RadioButton Content="Duct" IsChecked="{Binding IsDuctDiscipline}" GroupName="DisciplineGroup" Foreground="{DynamicResource Brush.Text.Primary}" Margin="0,0,10,0" />
+          <RadioButton Content="Pipe" IsChecked="{Binding IsPipeDiscipline}" GroupName="DisciplineGroup" Foreground="{DynamicResource Brush.Text.Primary}" Margin="0,0,10,0" />
+          <RadioButton Content="Cable Tray" IsChecked="{Binding IsCableTrayDiscipline}" GroupName="DisciplineGroup" Foreground="{DynamicResource Brush.Text.Primary}" />
+        </StackPanel>
+      </DockPanel>
+
+      <DockPanel Margin="0,2,0,6">
+        <TextBlock Text="Duct / Profile Shape" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Text.Secondary}" />
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
           <RadioButton Content="Rectangular" IsChecked="{Binding IsRectangular}" GroupName="DuctShape" Foreground="{DynamicResource Brush.Text.Primary}" Margin="0,0,12,0" />
           <RadioButton Content="Round" IsChecked="{Binding IsRound}" GroupName="DuctShape" Foreground="{DynamicResource Brush.Text.Primary}" />
@@ -209,7 +219,7 @@
         </ProgressBar.Style>
       </ProgressBar>
       <Button Grid.Column="0" Content="{Binding PreviewButtonText}" Style="{StaticResource EngineeringButton}" Height="36" Margin="0,6,0,0" IsEnabled="{Binding CanPreview}" Click="PreviewPath_Click" IsDefault="False" AutomationProperties.Name="Preview path or cancel" />
-      <Button Grid.Column="2" Content="✓ Generate Ducts" Style="{StaticResource PrimaryButton}" Height="36" Margin="0,6,0,0" IsEnabled="{Binding CanGenerate}" Click="GenerateDucts_Click" AutomationProperties.Name="Generate ducts" />
+      <Button Grid.Column="2" Content="{Binding GenerateButtonText}" Style="{StaticResource PrimaryButton}" Height="36" Margin="0,6,0,0" IsEnabled="{Binding CanGenerate}" Click="GenerateDucts_Click" AutomationProperties.Name="Generate MEP elements" />
     </Grid>
   </Grid>
 </Window>

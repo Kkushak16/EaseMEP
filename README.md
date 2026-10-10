@@ -3,7 +3,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Platform-Autodesk%20Revit%202024--2027-blue?style=for-the-badge&logo=autodesk" alt="Revit 2024-2027" />
   <img src="https://img.shields.io/badge/.NET%20Framework-4.8%20%7C%208.0-purple?style=for-the-badge&logo=dotnet" alt=".NET 4.8 / 8.0" />
-  <img src="https://img.shields.io/badge/Core%20Tests-74%20Passed%20(100%25)-success?style=for-the-badge&logo=checkmarx" alt="Tests 74 Passed" />
+  <img src="https://img.shields.io/badge/Core%20Tests-79%20Passed%20(100%25)-success?style=for-the-badge&logo=checkmarx" alt="Tests 79 Passed" />
   <img src="https://img.shields.io/badge/Benchmark%20Success-53%2F53%20(100%25)-brightgreen?style=for-the-badge" alt="Benchmark 100%" />
   <img src="https://img.shields.io/badge/Collisions-0-brightgreen?style=for-the-badge" alt="0 Collisions" />
   <img src="https://img.shields.io/badge/Paper%20Gate-GO%20(Auton%20in%20Constr)-orange?style=for-the-badge" alt="Paper Gate GO" />
@@ -43,6 +43,11 @@ Given a start connector (e.g. an AHU discharge) and an end connector (e.g. an ai
 
 - 🎯 **Endpoint Alignment & Connector Snapping**
   - Snaps discrete lattice waypoints to exact floating-point connector ports while preserving strict 90° orthogonality and re-verifying obstacle clearance.
+
+- 🏗️ **Multi-Discipline MEP Generation (Phase 12 / v1.1)**
+  - Full native generation for **HVAC Ducts**, **Mechanical / Plumbing Piping**, and **Electrical Cable Trays**.
+  - Automatic discipline identification from Revit connector domains (`DomainHvac`, `DomainPiping`, `DomainCableTrayConduit`).
+  - Native Revit elbow fitting insertion across all three disciplines in an atomic transaction.
 
 - 📊 **Built-In Scientific Benchmark Suite**
   - Headless 50-scene synthetic benchmark testing maze-like obstacles, tight structural gaps, and rotated OBBs.
@@ -158,13 +163,13 @@ powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -RevitVersion all
 dotnet build SmartMepRouter.sln -c Debug
 ```
 
-### Run Automated Unit Tests (74 Tests)
+### Run Automated Unit Tests (79 Tests)
 ```powershell
 dotnet test SmartMepRouter.sln
 ```
 Output:
 ```
-Passed! - Failed: 0, Passed: 74, Skipped: 0, Total: 74 (net8.0)
+Passed! - Failed: 0, Passed: 79, Skipped: 0, Total: 79 (net8.0)
 ```
 
 ### Run Scientific Benchmark Suite (53 Scenes)

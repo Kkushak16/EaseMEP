@@ -15,5 +15,6 @@ namespace SmartMepRouter.UI.Settings
         /// <summary>"Dark" or "Light".</summary>
         [DataMember] public string Theme { get; set; } = "Dark";
         [DataMember] public bool IsRectangular { get; set; } = true;
+        [DataMember] public string Discipline { get; set; } = "Duct";
     }
 }

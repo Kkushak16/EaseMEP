@@ -126,6 +126,21 @@ namespace SmartMepRouter.Revit.Extraction
                     systemTypeIdStr = conn.MEPSystem.GetTypeId()?.ToString() ?? conn.MEPSystem.Id.ToString();
                 }
 
+                MepDiscipline discipline = MepDiscipline.Duct;
+                switch (conn.Domain)
+                {
+                    case Domain.DomainPiping:
+                        discipline = MepDiscipline.Pipe;
+                        break;
+                    case Domain.DomainCableTrayConduit:
+                        discipline = MepDiscipline.CableTray;
+                        break;
+                    case Domain.DomainHvac:
+                    default:
+                        discipline = MepDiscipline.Duct;
+                        break;
+                }
+
                 return new ConnectorInfo
                 {
                     Id = conn.Id.ToString(),
@@ -135,6 +150,7 @@ namespace SmartMepRouter.Revit.Extraction
                     WidthFeet = width,
                     HeightFeet = height,
                     DiameterFeet = diameter,
+                    Discipline = discipline,
                     SystemTypeId = systemTypeIdStr,
                     OwnerElementId = ownerId
                 };

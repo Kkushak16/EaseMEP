@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SmartMepRouter.Core.Connectors;
 using SmartMepRouter.UI.Settings;
 
 namespace SmartMepRouter.UI.ViewModels
@@ -32,6 +33,7 @@ namespace SmartMepRouter.UI.ViewModels
         private bool _isRectangular = true;
         private string _selectedAllowedBends = Bends90Only;
         private string _selectedOptimization = OptimizationFewerBends;
+        private MepDiscipline _selectedDiscipline = MepDiscipline.Duct;
 
         private string _statusMessage = "Ready. Select start and end connectors in the Revit view.";
         private string _banner = string.Empty;
@@ -165,6 +167,40 @@ namespace SmartMepRouter.UI.ViewModels
             set { if (SetField(ref _selectedOptimization, value)) InvalidatePreview(); }
         }
 
+        public MepDiscipline SelectedDiscipline
+        {
+            get => _selectedDiscipline;
+            set
+            {
+                if (SetField(ref _selectedDiscipline, value))
+                {
+                    OnPropertyChanged(nameof(IsDuctDiscipline));
+                    OnPropertyChanged(nameof(IsPipeDiscipline));
+                    OnPropertyChanged(nameof(IsCableTrayDiscipline));
+                    OnPropertyChanged(nameof(GenerateButtonText));
+                    InvalidatePreview();
+                }
+            }
+        }
+
+        public bool IsDuctDiscipline
+        {
+            get => _selectedDiscipline == MepDiscipline.Duct;
+            set { if (value) SelectedDiscipline = MepDiscipline.Duct; }
+        }
+
+        public bool IsPipeDiscipline
+        {
+            get => _selectedDiscipline == MepDiscipline.Pipe;
+            set { if (value) SelectedDiscipline = MepDiscipline.Pipe; }
+        }
+
+        public bool IsCableTrayDiscipline
+        {
+            get => _selectedDiscipline == MepDiscipline.CableTray;
+            set { if (value) SelectedDiscipline = MepDiscipline.CableTray; }
+        }
+
         public string StatusMessage
         {
             get => _statusMessage;
@@ -217,6 +253,13 @@ namespace SmartMepRouter.UI.ViewModels
 
         public string PreviewButtonText => IsBusy ? "Cancel" : "Preview Path";
 
+        public string GenerateButtonText => _selectedDiscipline switch
+        {
+            MepDiscipline.Pipe => "✓ Generate Pipes",
+            MepDiscipline.CableTray => "✓ Generate Cable Trays",
+            _ => "✓ Generate Ducts"
+        };
+
         public void AppendStatus(string line)
         {
             string time = DateTime.Now.ToString("HH:mm:ss");
@@ -247,6 +290,8 @@ namespace SmartMepRouter.UI.ViewModels
             IsDarkTheme = s.Theme != "Light";
             if (s.Optimization == OptimizationFewerBends || s.Optimization == OptimizationShortest)
                 SelectedOptimization = s.Optimization;
+            if (!string.IsNullOrEmpty(s.Discipline) && Enum.TryParse(s.Discipline, out MepDiscipline disc))
+                SelectedDiscipline = disc;
         }
 
         public UserSettings ToSettings() => new UserSettings
@@ -258,7 +303,8 @@ namespace SmartMepRouter.UI.ViewModels
             IsRectangular = IsRectangular,
             ClearanceMarginMm = ClearanceMarginMm,
             Optimization = SelectedOptimization,
-            Theme = IsDarkTheme ? "Dark" : "Light"
+            Theme = IsDarkTheme ? "Dark" : "Light",
+            Discipline = SelectedDiscipline.ToString()
         };
 
         private void InvalidatePreview()
@@ -276,6 +322,7 @@ namespace SmartMepRouter.UI.ViewModels
             OnPropertyChanged(nameof(CanPreview));
             OnPropertyChanged(nameof(CanGenerate));
             OnPropertyChanged(nameof(PreviewButtonText));
+            OnPropertyChanged(nameof(GenerateButtonText));
         }
 
         protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)

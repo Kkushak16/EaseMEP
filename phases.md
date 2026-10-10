@@ -153,17 +153,30 @@ Each phase has exit criteria. Do not start the next phase until they pass (spike
 
 **Exit:** router finds collision-free 45° offset paths in benchmark scenes; corner cutting is prevented; all tests pass. (PASSED - 74/74 tests green, shorter diagonal paths verified, 0 collisions)
 
-## Backlog (v1.1 and v2)
+## Phase 12 — Multi-Discipline MEP: Pipes & Cable Trays (v1.1)
 
+**Goal:** extend EaseMEP routing engine to support mechanical piping and electrical cable trays alongside HVAC ductwork.
+
+- [x] Multi-discipline data contracts: `MepDiscipline` enum (Duct, Pipe, CableTray) and `ConnectorInfo.Discipline`. (`MepDiscipline.cs`, `ConnectorInfo.cs`)
+- [x] Core cross-sectional dimension and inflation specifications: `PipeSpec` and `CableTraySpec`. (`PipeSpec.cs`, `CableTraySpec.cs`)
+- [x] Domain-aware connector extraction: map Revit `conn.Domain` to `MepDiscipline`. (`ConnectorReader.cs`)
+- [x] Native Revit Pipe generation pipeline: `PipeSystemResolver`, `PipeCreationOptions`, and `PipeBuilder` with atomic `TransactionGroup` rollback. (`PipeBuilder.cs`)
+- [x] Native Revit Cable Tray generation pipeline: `CableTraySystemResolver`, `CableTrayCreationOptions`, and `CableTrayBuilder` with atomic `TransactionGroup` rollback. (`CableTrayBuilder.cs`)
+- [x] UI discipline selector with auto-detection upon connector pick and dynamic button label (`✓ Generate Ducts`, `✓ Generate Pipes`, `✓ Generate Cable Trays`). (`MainView.xaml`, `MainViewModel.cs`, `RoutingController.cs`)
+- [x] Unit tests for pipe and cable tray routing, 0 collisions, and fabrication angle adherence. (`MultiDisciplineRoutingTests.cs`, 79/79 unit tests green)
+
+**Exit:** router automatically plans and builds collision-free native Revit pipes and cable trays matching picked connector domains; all tests pass. (PASSED - 79/79 tests green, 0 collisions)
+
+## Backlog (v1.2 and v2)
+
+- Multi-duct coordination (prioritized reservation, then conflict-based search)
 - Mesh-accurate obstacles with BVH
 - Octree / multi-resolution grid
 - Pressure-drop proxy and scoring
 - Trunk-and-branch tree routing from AHU to multiple terminals
-- Multi-duct coordination (prioritized reservation, then conflict-based search)
 - Local clash-fix mode from interference reports
 - Penetration/sleeve recommendation for deep beams
 - Rebar clash detector variant
-- Pipes and cable trays
 
 ## Dependency overview
 
@@ -171,7 +184,7 @@ Each phase has exit criteria. Do not start the next phase until they pass (spike
 P0 -> P1 -> P2 ----------------------------> P9
        \                                      ^
         P3 -> P4 -> P5 -> P6 -> P7 -> P8 ----/
-                                           \-> P10 -> P11 (v1.1)
+                                           \-> P10 -> P11 (v1.1) -> P12 (v1.1)
 ```
 
 P1/P2 (offline) and P3 (Revit hello-world) can run in parallel if you want a motivating early win.

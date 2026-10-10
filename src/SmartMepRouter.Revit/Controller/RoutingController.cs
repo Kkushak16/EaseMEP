@@ -99,6 +99,11 @@ namespace SmartMepRouter.Revit.Controller
                     _start = picked;
                     _vm.StartConnectorText = picked.Label;
                     _vm.IsStartPicked = true;
+                    _vm.SelectedDiscipline = picked.Info.Discipline;
+                    if (picked.Info.Shape == ConnectorShape.Round)
+                        _vm.IsRound = true;
+                    else if (picked.Info.Shape == ConnectorShape.Rectangular)
+                        _vm.IsRectangular = true;
                 }
                 else
                 {
@@ -106,7 +111,7 @@ namespace SmartMepRouter.Revit.Controller
                     _vm.EndConnectorText = picked.Label;
                     _vm.IsEndPicked = true;
                 }
-                _vm.AppendStatus($"Picked {which} connector {picked.Label}");
+                _vm.AppendStatus($"Picked {which} ({picked.Info.Discipline}) connector {picked.Label}");
             }
             catch (Autodesk.Revit.Exceptions.OperationCanceledException)
             {
@@ -284,20 +289,53 @@ namespace SmartMepRouter.Revit.Controller
 
                 ConnectorInfo s = _start.Info;
                 ConnectorShape shape = _vm.IsRectangular ? ConnectorShape.Rectangular : ConnectorShape.Round;
-                var options = new DuctCreationOptions
-                {
-                    Shape = shape,
-                    WidthFeet = s.WidthFeet > 0 ? s.WidthFeet : CoreUnits.MmToFeet(300.0),
-                    HeightFeet = s.HeightFeet > 0 ? s.HeightFeet : CoreUnits.MmToFeet(200.0),
-                    DiameterFeet = s.DiameterFeet > 0 ? s.DiameterFeet : CoreUnits.MmToFeet(300.0),
-                    StartTerminalConnector = ResolveConnector(doc, _start),
-                    EndTerminalConnector = ResolveConnector(doc, _end)
-                };
+                Connector? startConn = ResolveConnector(doc, _start);
+                Connector? endConn = ResolveConnector(doc, _end);
 
-                DuctCreationResult result = DuctBuilder.CreateDuctRoute(doc, _route, options);
+                DuctCreationResult result;
+                string elementNoun;
+
+                if (_vm.SelectedDiscipline == MepDiscipline.Pipe)
+                {
+                    elementNoun = "pipes";
+                    var pipeOptions = new PipeCreationOptions
+                    {
+                        DiameterFeet = s.DiameterFeet > 0 ? s.DiameterFeet : CoreUnits.MmToFeet(75.0),
+                        StartTerminalConnector = startConn,
+                        EndTerminalConnector = endConn
+                    };
+                    result = PipeBuilder.CreatePipeRoute(doc, _route, pipeOptions);
+                }
+                else if (_vm.SelectedDiscipline == MepDiscipline.CableTray)
+                {
+                    elementNoun = "cable trays";
+                    var trayOptions = new CableTrayCreationOptions
+                    {
+                        WidthFeet = s.WidthFeet > 0 ? s.WidthFeet : CoreUnits.MmToFeet(300.0),
+                        HeightFeet = s.HeightFeet > 0 ? s.HeightFeet : CoreUnits.MmToFeet(100.0),
+                        StartTerminalConnector = startConn,
+                        EndTerminalConnector = endConn
+                    };
+                    result = CableTrayBuilder.CreateCableTrayRoute(doc, _route, trayOptions);
+                }
+                else
+                {
+                    elementNoun = "ducts";
+                    var ductOptions = new DuctCreationOptions
+                    {
+                        Shape = shape,
+                        WidthFeet = s.WidthFeet > 0 ? s.WidthFeet : CoreUnits.MmToFeet(300.0),
+                        HeightFeet = s.HeightFeet > 0 ? s.HeightFeet : CoreUnits.MmToFeet(200.0),
+                        DiameterFeet = s.DiameterFeet > 0 ? s.DiameterFeet : CoreUnits.MmToFeet(300.0),
+                        StartTerminalConnector = startConn,
+                        EndTerminalConnector = endConn
+                    };
+                    result = DuctBuilder.CreateDuctRoute(doc, _route, ductOptions);
+                }
+
                 if (result.Success)
                 {
-                    _vm.AppendStatus($"Created {result.DuctIds.Count} ducts and {result.FittingIds.Count} fittings. Ctrl+Z undoes them in one step.");
+                    _vm.AppendStatus($"Created {result.DuctIds.Count} {elementNoun} and {result.FittingIds.Count} fittings. Ctrl+Z undoes them in one step.");
                     foreach (var warning in result.Warnings)
                     {
                         _vm.AppendStatus("Warning: " + warning);
@@ -331,7 +369,21 @@ namespace SmartMepRouter.Revit.Controller
             double width = start.WidthFeet > 0 ? start.WidthFeet : CoreUnits.MmToFeet(300.0);
             double height = start.HeightFeet > 0 ? start.HeightFeet : CoreUnits.MmToFeet(200.0);
             double diameter = start.DiameterFeet > 0 ? start.DiameterFeet : CoreUnits.MmToFeet(300.0);
-            if (shape == ConnectorShape.Round)
+
+            if (_vm.SelectedDiscipline == MepDiscipline.Pipe)
+            {
+                shape = ConnectorShape.Round;
+                diameter = start.DiameterFeet > 0 ? start.DiameterFeet : CoreUnits.MmToFeet(75.0);
+                width = diameter;
+                height = diameter;
+            }
+            else if (_vm.SelectedDiscipline == MepDiscipline.CableTray)
+            {
+                shape = ConnectorShape.Rectangular;
+                width = start.WidthFeet > 0 ? start.WidthFeet : CoreUnits.MmToFeet(300.0);
+                height = start.HeightFeet > 0 ? start.HeightFeet : CoreUnits.MmToFeet(100.0);
+            }
+            else if (shape == ConnectorShape.Round)
             {
                 width = diameter;
                 height = diameter;
