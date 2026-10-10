@@ -150,9 +150,9 @@
     "semantic_hash": ""
   },
   "src/SmartMepRouter.Core/Spatial/CollisionVerifier.cs": {
-    "mtime": 1791655581.850644,
-    "seen": 1791655732.020215,
-    "ast_hash": "ec489dbf98d63203c68018946ed36164",
+    "mtime": 1791657831.002034,
+    "seen": 1791657914.6293795,
+    "ast_hash": "9a67b4aeb6a4ad64d8279fba5c29518e",
     "semantic_hash": ""
   },
   "src/SmartMepRouter.Core/Spatial/GridCell.cs": {
@@ -438,9 +438,9 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1791657382.2108467,
-    "seen": 1791657407.798091,
-    "ast_hash": "b560b5ce47296d7aca6dfc952e483c09",
+    "mtime": 1791657904.8930829,
+    "seen": 1791657914.6294684,
+    "ast_hash": "2ea8bf00ba6d27ae6f35eaec710bf8f9",
     "semantic_hash": ""
   },
   "architecture.md": {
@@ -633,6 +633,18 @@
     "mtime": 1791657315.3031266,
     "seen": 1791657407.7980835,
     "ast_hash": "28c280af22d22351355da1cbb412a832",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Spatial/SpatialHash3D.cs": {
+    "mtime": 1791657800.8488421,
+    "seen": 1791657914.629387,
+    "ast_hash": "d45b75b1b100cb72e52898ddd5a6ce89",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/SpatialHash3DTests.cs": {
+    "mtime": 1791657872.9590552,
+    "seen": 1791657914.629465,
+    "ast_hash": "0870357e638bb95c0e21c224bebe8233",
     "semantic_hash": ""
   }
 }
