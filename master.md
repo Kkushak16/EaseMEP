@@ -10,10 +10,10 @@ A compiled C# add-in for Autodesk Revit that, given a start connector and an end
 
 | Item | Value |
 |---|---|
-| Stage | Phase 5 complete (Duct.Create overloads verified, Approach A ducts & fittings in TransactionGroup, rollback on failure, 40/40 tests green) |
-| Type | Personal project (research paper = optional, decide after Phase 9) |
+| Stage | Phase 10 complete (v1.0 packaged and ready, 1-click deployment to Revit 2024–2027, 67/67 tests green, Paper Gate GO) |
+| Type | Open-source / research paper target (Automation in Construction / EG-ICE) |
 | v1 mode | **From-scratch routing**, point-to-point, single duct, single level |
-| Revit targets | Old (.NET Framework 4.8, Revit 2024 and older) **and** new (.NET 8, Revit 2025+) |
+| Revit targets | Old (.NET Framework 4.8, Revit 2024 and older) **and** new (.NET 8, Revit 2025–2027) |
 | Dev machine | .NET 8 SDK (8.0.425) installed. Revit 2027 installed at `D:\Apps\Revit 2027` |
 
 ## 3. Document map

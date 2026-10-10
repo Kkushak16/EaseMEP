@@ -104,6 +104,11 @@ namespace SmartMepRouter.Core.Post
             double absY = Math.Abs(midDir.Y);
             double absZ = Math.Abs(midDir.Z);
 
+            // If the middle segment is a 45-degree planar diagonal, preserve its diagonal geometry
+            if (absX > 0.05 && absY > 0.05 && Math.Abs(absX - absY) < 0.25 && absZ < 0.05) return;
+            if (absX > 0.05 && absZ > 0.05 && Math.Abs(absX - absZ) < 0.25 && absY < 0.05) return;
+            if (absY > 0.05 && absZ > 0.05 && Math.Abs(absY - absZ) < 0.25 && absX < 0.05) return;
+
             if (absX >= absY && absX >= absZ)
             {
                 // Middle segment is primarily along X: equalize Y and Z

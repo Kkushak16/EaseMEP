@@ -48,6 +48,7 @@ namespace SmartMepRouter.Revit.Extraction
 
             foreach (Element element in collector)
             {
+                if (options.ExcludedElementIds.Contains(element.Id)) continue;
                 try
                 {
                     IObstacle? obs = GeometryUtils.CreateObstacleFromElement(element, geomOptions, null, "host_");

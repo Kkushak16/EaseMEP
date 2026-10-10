@@ -35,6 +35,9 @@ namespace SmartMepRouter.Revit.Extraction
         /// <summary>Include elements from linked Revit models (FR-05, default on).</summary>
         public bool IncludeLinkedModels { get; set; } = true;
 
+        /// <summary>Host elements never extracted as obstacles, e.g. the owners of the picked start/end connectors.</summary>
+        public ISet<ElementId> ExcludedElementIds { get; } = new HashSet<ElementId>();
+
         /// <summary>Search corridor lateral margin in decimal feet (default 500 mm).</summary>
         public double CorridorMarginFeet { get; set; } = CoreUnits.MmToFeet(500.0);
 
@@ -56,13 +59,21 @@ namespace SmartMepRouter.Revit.Extraction
         /// <summary>Optional override for maximum corridor elevation (Z) in decimal feet.</summary>
         public double? PlenumMaxZFeet { get; set; }
 
+        /// <summary>Target duct shape profile (Rectangular or Round).</summary>
+        public SmartMepRouter.Core.Connectors.ConnectorShape Shape { get; set; } = SmartMepRouter.Core.Connectors.ConnectorShape.Rectangular;
+
+        /// <summary>Target duct cross-sectional diameter in decimal feet (for round ductwork, default 300 mm).</summary>
+        public double DiameterFeet { get; set; } = CoreUnits.MmToFeet(300.0);
+
         /// <summary>
         /// Computes the total isotropic inflation margin per FR-17:
-        /// clearance + insulation + max(width, height) / 2.0.
+        /// clearance + insulation + duct half-extent.
         /// </summary>
         public double ComputeTotalInflationFeet()
         {
-            double ductHalfExtent = Math.Max(DuctWidthFeet, DuctHeightFeet) * 0.5;
+            double ductHalfExtent = Shape == SmartMepRouter.Core.Connectors.ConnectorShape.Round
+                ? DiameterFeet * 0.5
+                : Math.Max(DuctWidthFeet, DuctHeightFeet) * 0.5;
             return ClearanceFeet + InsulationFeet + ductHalfExtent;
         }
 

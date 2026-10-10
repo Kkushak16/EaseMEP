@@ -60,6 +60,16 @@ namespace SmartMepRouter.Core.Spatial
             return new BoxObstacle($"{Id}_inflated", Bounds.Inflate(marginFeet));
         }
 
+        public IObstacle Inflate(double marginX, double marginY, double marginZ)
+        {
+            return new BoxObstacle($"{Id}_inflated", Bounds.Inflate(marginX, marginY, marginZ));
+        }
+
+        public IObstacle Inflate(Vec3 marginsFeet)
+        {
+            return new BoxObstacle($"{Id}_inflated", Bounds.Inflate(marginsFeet));
+        }
+
         private static bool ClipAxis(double start, double delta, double min, double max, ref double tMin, ref double tMax)
         {
             if (Math.Abs(delta) < 1e-9)

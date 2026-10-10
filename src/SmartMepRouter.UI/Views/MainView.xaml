@@ -55,7 +55,7 @@
       <!-- Primary Action Button Style -->
       <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource EngineeringButton}">
         <Setter Property="Background" Value="{DynamicResource Brush.Accent.Primary}" />
-        <Setter Property="Foreground" Value="#090A0D" />
+        <Setter Property="Foreground" Value="{DynamicResource Brush.Text.OnAccent}" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="BorderThickness" Value="0" />
       </Style>
@@ -73,7 +73,23 @@
 
     <!-- SECTION 1: CONNECTORS -->
     <StackPanel Grid.Row="0" Margin="0,0,0,16">
-      <TextBlock Text="1  CONNECTORS" FontWeight="SemiBold" FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,8" />
+      <Border Background="{DynamicResource Brush.Accent.Subtle}" BorderBrush="{DynamicResource Brush.Accent.Primary}" BorderThickness="1" CornerRadius="6" Padding="8,6" Margin="0,0,0,12">
+        <Border.Style>
+          <Style TargetType="Border">
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding HasBanner}" Value="True">
+                <Setter Property="Visibility" Value="Visible" />
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </Border.Style>
+        <TextBlock Text="{Binding Banner}" Foreground="{DynamicResource Brush.Text.Primary}" TextWrapping="Wrap" />
+      </Border>
+      <DockPanel Margin="0,0,0,8">
+        <Button DockPanel.Dock="Right" Content="{Binding ThemeButtonText}" Click="ToggleTheme_Click" Style="{StaticResource EngineeringButton}" Height="22" Padding="8,0" FontSize="11" AutomationProperties.Name="Toggle light or dark theme" />
+        <TextBlock Text="1  CONNECTORS" FontWeight="SemiBold" FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" VerticalAlignment="Center" />
+      </DockPanel>
       <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
@@ -82,13 +98,13 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0">
-          <Button x:Name="PickStartButton" Content="Pick Start Connector" Style="{StaticResource EngineeringButton}" Click="PickStart_Click" />
-          <TextBlock Text="{Binding StartConnectorText}" FontFamily="Cascadia Mono, Consolas, monospace" FontSize="11" Foreground="{DynamicResource Brush.Text.Tertiary}" Margin="2,4,0,0" TextTrimming="CharacterEllipsis" />
+          <Button x:Name="PickStartButton" Content="Pick Start Connector" Style="{StaticResource EngineeringButton}" Click="PickStart_Click" IsEnabled="{Binding CanPick}" AutomationProperties.Name="Pick start connector" />
+          <TextBlock Text="{Binding StartConnectorText}" FontFamily="Cascadia Mono, Consolas, monospace" FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="2,4,0,0" TextTrimming="CharacterEllipsis" />
         </StackPanel>
 
         <StackPanel Grid.Column="2">
-          <Button x:Name="PickEndButton" Content="Pick End Connector" Style="{StaticResource EngineeringButton}" Click="PickEnd_Click" />
-          <TextBlock Text="{Binding EndConnectorText}" FontFamily="Cascadia Mono, Consolas, monospace" FontSize="11" Foreground="{DynamicResource Brush.Text.Tertiary}" Margin="2,4,0,0" TextTrimming="CharacterEllipsis" />
+          <Button x:Name="PickEndButton" Content="Pick End Connector" Style="{StaticResource EngineeringButton}" Click="PickEnd_Click" IsEnabled="{Binding CanPick}" AutomationProperties.Name="Pick end connector" />
+          <TextBlock Text="{Binding EndConnectorText}" FontFamily="Cascadia Mono, Consolas, monospace" FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="2,4,0,0" TextTrimming="CharacterEllipsis" />
         </StackPanel>
       </Grid>
       <Separator Margin="0,12,0,0" Background="{DynamicResource Brush.Border.Default}" />
@@ -120,6 +136,18 @@
           <TextBlock Text="mm" VerticalAlignment="Center" Margin="6,0,0,0" Foreground="{DynamicResource Brush.Text.Tertiary}" />
         </StackPanel>
       </DockPanel>
+      <TextBlock Text="{Binding ClearanceError}" Foreground="{DynamicResource Brush.Status.Error}" FontSize="11" HorizontalAlignment="Right" Margin="0,2,0,0">
+        <TextBlock.Style>
+          <Style TargetType="TextBlock">
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding HasClearanceError}" Value="True">
+                <Setter Property="Visibility" Value="Visible" />
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </TextBlock.Style>
+      </TextBlock>
       <Separator Margin="0,12,0,0" Background="{DynamicResource Brush.Border.Default}" />
     </StackPanel>
 
@@ -131,15 +159,15 @@
         <TextBlock Text="Duct Shape" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Text.Secondary}" />
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
           <RadioButton Content="Rectangular" IsChecked="{Binding IsRectangular}" GroupName="DuctShape" Foreground="{DynamicResource Brush.Text.Primary}" Margin="0,0,12,0" />
-          <RadioButton Content="Round" IsChecked="{Binding IsRectangular, Converter={x:Null}}" GroupName="DuctShape" IsEnabled="False" Foreground="{DynamicResource Brush.Text.Disabled}" />
+          <RadioButton Content="Round" IsChecked="{Binding IsRound}" GroupName="DuctShape" Foreground="{DynamicResource Brush.Text.Primary}" />
         </StackPanel>
       </DockPanel>
 
       <DockPanel Margin="0,4,0,4">
         <TextBlock Text="Allowed Bends" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Text.Secondary}" />
-        <ComboBox Width="180" Height="28" DockPanel.Dock="Right" SelectedItem="{Binding SelectedAllowedBends}" Background="{DynamicResource Brush.Surface.Default}" Foreground="{DynamicResource Brush.Text.Primary}">
+        <ComboBox Width="180" Height="28" DockPanel.Dock="Right" SelectedValue="{Binding SelectedAllowedBends}" SelectedValuePath="Content" Background="{DynamicResource Brush.Surface.Default}" Foreground="{DynamicResource Brush.Text.Primary}">
           <ComboBoxItem Content="90° Orthogonal Only" IsSelected="True" />
-          <ComboBoxItem Content="45° and 90° (v1.1)" IsEnabled="False" />
+          <ComboBoxItem Content="45° and 90° (FR-08)" />
         </ComboBox>
       </DockPanel>
 
@@ -155,7 +183,7 @@
 
     <!-- STATUS LOG -->
     <GroupBox Grid.Row="3" Header="STATUS LOG" Foreground="{DynamicResource Brush.Text.Tertiary}" BorderBrush="{DynamicResource Brush.Border.Default}" Margin="0,0,0,12">
-      <ScrollViewer VerticalScrollBarVisibility="Auto">
+      <ScrollViewer x:Name="LogScroll" VerticalScrollBarVisibility="Auto">
         <TextBox Text="{Binding StatusMessage, Mode=OneWay}" IsReadOnly="True" TextWrapping="Wrap" Background="Transparent" Foreground="{DynamicResource Brush.Text.Secondary}" BorderThickness="0" FontFamily="Cascadia Mono, Consolas, monospace" FontSize="11" Margin="4" />
       </ScrollViewer>
     </GroupBox>
@@ -168,8 +196,20 @@
         <ColumnDefinition Width="*" />
       </Grid.ColumnDefinitions>
 
-      <Button Grid.Column="0" Content="Preview Path" Style="{StaticResource EngineeringButton}" Height="36" IsEnabled="{Binding CanPreview}" Click="PreviewPath_Click" />
-      <Button Grid.Column="2" Content="✓ Generate Ducts" Style="{StaticResource PrimaryButton}" Height="36" IsEnabled="{Binding CanGenerate}" Click="GenerateDucts_Click" />
+      <ProgressBar VerticalAlignment="Top" Height="2" IsIndeterminate="True" BorderThickness="0" Grid.ColumnSpan="3" Foreground="{DynamicResource Brush.Accent.Primary}" Background="Transparent">
+        <ProgressBar.Style>
+          <Style TargetType="ProgressBar">
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding IsBusy}" Value="True">
+                <Setter Property="Visibility" Value="Visible" />
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </ProgressBar.Style>
+      </ProgressBar>
+      <Button Grid.Column="0" Content="{Binding PreviewButtonText}" Style="{StaticResource EngineeringButton}" Height="36" Margin="0,6,0,0" IsEnabled="{Binding CanPreview}" Click="PreviewPath_Click" IsDefault="False" AutomationProperties.Name="Preview path or cancel" />
+      <Button Grid.Column="2" Content="✓ Generate Ducts" Style="{StaticResource PrimaryButton}" Height="36" Margin="0,6,0,0" IsEnabled="{Binding CanGenerate}" Click="GenerateDucts_Click" AutomationProperties.Name="Generate ducts" />
     </Grid>
   </Grid>
 </Window>

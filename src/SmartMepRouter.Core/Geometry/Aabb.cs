@@ -33,6 +33,8 @@ namespace SmartMepRouter.Core.Geometry
 
         public Vec3 Size => Max - Min;
 
+        public double Volume => Math.Max(0.0, (Max.X - Min.X) * (Max.Y - Min.Y) * (Max.Z - Min.Z));
+
         /// <summary>
         /// Returns true if this AABB contains the specified point in decimal feet.
         /// </summary>
@@ -56,6 +58,14 @@ namespace SmartMepRouter.Core.Geometry
         {
             Vec3 delta = new Vec3(marginFeet, marginFeet, marginFeet);
             return new Aabb(Min - delta, Max + delta);
+        }
+
+        /// <summary>
+        /// Returns a new AABB inflated independently on each axis by the given vector in decimal feet.
+        /// </summary>
+        public Aabb Inflate(Vec3 margins)
+        {
+            return new Aabb(Min - margins, Max + margins);
         }
 
         /// <summary>

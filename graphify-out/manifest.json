@@ -1,0 +1,578 @@
+{
+  "SmartMepRouter.sln": {
+    "mtime": 1791212279.2625115,
+    "seen": 1791395116.9971561,
+    "ast_hash": "ac5e68f8c640e72e76e2ba555403483f",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Connectors/ConnectorInfo.cs": {
+    "mtime": 1791227675.75893,
+    "seen": 1791395116.9971604,
+    "ast_hash": "291687757b2cc6c11ec4bf35f1ae5cde",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Connectors/ConnectorShape.cs": {
+    "mtime": 1791227669.8608954,
+    "seen": 1791395116.9971623,
+    "ast_hash": "fff0b04657a5a7ffc75226f3e9c1d2f3",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Geometry/Aabb.cs": {
+    "mtime": 1791397099.2252705,
+    "seen": 1791397472.445343,
+    "ast_hash": "23a07243c8136fa17bba09467efb72d7",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Geometry/Units.cs": {
+    "mtime": 1791212231.846778,
+    "seen": 1791395116.9971642,
+    "ast_hash": "19af51a688b742a11ac518267d257ac0",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Geometry/Vec3.cs": {
+    "mtime": 1791655590.0453532,
+    "seen": 1791655732.0201805,
+    "ast_hash": "8577ade79d0e05c0e8b62952f380edee",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Metrics/MetricsWriter.cs": {
+    "mtime": 1791220089.0976448,
+    "seen": 1791395116.997166,
+    "ast_hash": "b7d72673c7c721a484680352538ebee3",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Metrics/RunMetrics.cs": {
+    "mtime": 1791220083.2311532,
+    "seen": 1791395116.9971666,
+    "ast_hash": "580a64bae9fe2787c0788f13b59bf62b",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Post/EndpointAligner.cs": {
+    "mtime": 1791399721.660741,
+    "seen": 1791655732.0201857,
+    "ast_hash": "1432bac4208c8168d3f5fb149300efca",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Post/PathSimplifier.cs": {
+    "mtime": 1791212979.9213016,
+    "seen": 1791395116.997168,
+    "ast_hash": "341752fe71e075cce354eba5f9e7fcec",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Scenes/DuctSpec.cs": {
+    "mtime": 1791397121.1414876,
+    "seen": 1791397472.4453516,
+    "ast_hash": "9c8b30bc5dabc1782c7147f7a9a29fdc",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Scenes/SceneDefinition.cs": {
+    "mtime": 1791220022.1540716,
+    "seen": 1791395116.9971697,
+    "ast_hash": "718fd65049bc47a772729224922946c3",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Scenes/SceneDto.cs": {
+    "mtime": 1791220054.784792,
+    "seen": 1791395116.9971702,
+    "ast_hash": "9f9d0d493cb710d144fe07db15709cf0",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Scenes/SceneGenerator.cs": {
+    "mtime": 1791220075.8597877,
+    "seen": 1791395116.997171,
+    "ast_hash": "5e07ad450e387834327c9b60d7f2bc1d",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Scenes/SceneLoader.cs": {
+    "mtime": 1791220065.566765,
+    "seen": 1791395116.9971716,
+    "ast_hash": "0068bc199d72d0a9a10984c09db63812",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Search/BaselineRouter.cs": {
+    "mtime": 1791220098.969277,
+    "seen": 1791395116.997172,
+    "ast_hash": "f7422c0e102f0b96e96fdf56f32017d0",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Search/CostModel.cs": {
+    "mtime": 1791655596.791223,
+    "seen": 1791655732.0202036,
+    "ast_hash": "510f4b48805bbfdb41c58d263550f273",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Search/Direction3D.cs": {
+    "mtime": 1791399588.3018498,
+    "seen": 1791655732.0202045,
+    "ast_hash": "6970456eb131c979e9f9350adc8e62d2",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Search/MinHeap.cs": {
+    "mtime": 1791212912.083477,
+    "seen": 1791395116.9971745,
+    "ast_hash": "d05e0da9c0ae07791f84ce1f129ab154",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Search/RouteResult.cs": {
+    "mtime": 1791396447.3740892,
+    "seen": 1791396932.6602435,
+    "ast_hash": "7ae0a856ed341264d2ff6e4e66979499",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Search/RouteState.cs": {
+    "mtime": 1791212946.5857806,
+    "seen": 1791395116.9971757,
+    "ast_hash": "9f1647fa8f8c969b6cf702893f347571",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Search/Router.cs": {
+    "mtime": 1791399704.8210897,
+    "seen": 1791655732.02021,
+    "ast_hash": "121c4ff68d9ed8fd7d91ea1cb59bb5aa",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Search/RoutingStatus.cs": {
+    "mtime": 1791212962.4910111,
+    "seen": 1791395116.9971778,
+    "ast_hash": "ae4720a4a1ddec8f11177584bdb66cce",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/SmartMepRouter.Core.csproj": {
+    "mtime": 1791220029.6284645,
+    "seen": 1791395116.9971783,
+    "ast_hash": "279868d71303e9e2ae37f6c387bfda19",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Spatial/BoxObstacle.cs": {
+    "mtime": 1791395562.2711668,
+    "seen": 1791396932.6602523,
+    "ast_hash": "a154e387b285667d1f93c82e601c5ce0",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Spatial/CollisionVerifier.cs": {
+    "mtime": 1791655581.850644,
+    "seen": 1791655732.020215,
+    "ast_hash": "ec489dbf98d63203c68018946ed36164",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Spatial/GridCell.cs": {
+    "mtime": 1791212925.5239415,
+    "seen": 1791395116.9971805,
+    "ast_hash": "dfe293c7eafc6b52922ae95c3614a6ae",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Spatial/IObstacle.cs": {
+    "mtime": 1791395512.5959375,
+    "seen": 1791396932.660257,
+    "ast_hash": "dc16f2ca2f6c484816c1a6ed5384d5ec",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Spatial/ObbObstacle.cs": {
+    "mtime": 1791395577.8305743,
+    "seen": 1791396932.6602588,
+    "ast_hash": "beb3e2d816361786272035bb333a464a",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Spatial/SparseGrid.cs": {
+    "mtime": 1791399614.9959452,
+    "seen": 1791655732.0202205,
+    "ast_hash": "02dcbb05f3f0fade435cf6b83b63b661",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/App.cs": {
+    "mtime": 1791223504.046492,
+    "seen": 1791395116.9971836,
+    "ast_hash": "9d8fdca2c2fc932f27dfe7b3f8d8654d",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Commands/RoutingCommand.cs": {
+    "mtime": 1791395025.2000847,
+    "seen": 1791395116.997184,
+    "ast_hash": "52a54b8a262bea0f53001c7b35323ee2",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Controller/ConnectorPickFilter.cs": {
+    "mtime": 1791394972.6594255,
+    "seen": 1791395116.9971848,
+    "ast_hash": "00961620042d8f69a5ce43161cbba80e",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Controller/PickedConnector.cs": {
+    "mtime": 1791394978.3544068,
+    "seen": 1791395116.9971852,
+    "ast_hash": "91019a25efca340a916294eca572f127",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Controller/RevitActionHandler.cs": {
+    "mtime": 1791394970.3996453,
+    "seen": 1791395116.997186,
+    "ast_hash": "0a5c83ed9eb045f62c58a0d79198db1f",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Controller/RoutingController.cs": {
+    "mtime": 1791655633.7330651,
+    "seen": 1791655732.0202298,
+    "ast_hash": "a903049906daafd91fb57d2356c9ea5d",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Creation/DuctBuilder.cs": {
+    "mtime": 1791655689.5688498,
+    "seen": 1791655732.0202312,
+    "ast_hash": "3613f7e27a413ada3ed4092f2b0d7f18",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Creation/DuctCreationOptions.cs": {
+    "mtime": 1791228961.41018,
+    "seen": 1791395116.997188,
+    "ast_hash": "984e6bbc2c0536ad27678d8616c37ec6",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Creation/DuctCreationResult.cs": {
+    "mtime": 1791655610.6246676,
+    "seen": 1791655732.0202336,
+    "ast_hash": "3fa5a6285fbb21a8e1056ffec2321506",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Creation/DuctSystemResolver.cs": {
+    "mtime": 1791228976.7370396,
+    "seen": 1791395116.9971893,
+    "ast_hash": "d75bdadc04a38687ecf796a6b157a43b",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Creation/RoutingFailuresPreprocessor.cs": {
+    "mtime": 1791396642.7696207,
+    "seen": 1791396932.6602783,
+    "ast_hash": "d21c037117cf50c256762cd21bb28644",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Extraction/ConnectorReader.cs": {
+    "mtime": 1791227827.9210038,
+    "seen": 1791395116.997191,
+    "ast_hash": "a8b5308fed4b710820e77db7ef175686",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Extraction/ExtractionOptions.cs": {
+    "mtime": 1791395797.1760821,
+    "seen": 1791396932.6602812,
+    "ast_hash": "996a1deb43aab065144a1381b635cbc2",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Extraction/ExtractionResult.cs": {
+    "mtime": 1791227728.467946,
+    "seen": 1791395116.9971926,
+    "ast_hash": "3840b1fbb12933eaa36686b36e30db92",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Extraction/GeometryUtils.cs": {
+    "mtime": 1791227849.125387,
+    "seen": 1791395116.997193,
+    "ast_hash": "cafb8de0a5e1d1e2b83f9e3dc3d137e2",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Extraction/HostObstacleExtractor.cs": {
+    "mtime": 1791395232.5671666,
+    "seen": 1791396932.6602862,
+    "ast_hash": "97a16ba3c3c4c3593ef481d2e3d039a8",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Extraction/LinkObstacleExtractor.cs": {
+    "mtime": 1791227743.9418328,
+    "seen": 1791395116.9971948,
+    "ast_hash": "1d9519e35e2c6f9d9c7d8092fd3da207",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Extraction/ObstacleExtractor.cs": {
+    "mtime": 1791227754.8145576,
+    "seen": 1791395116.9971952,
+    "ast_hash": "c8450bc82090d2eeb6223914619127f9",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Extraction/SearchCorridorBuilder.cs": {
+    "mtime": 1791227702.170653,
+    "seen": 1791395116.997196,
+    "ast_hash": "bd71994efc277456a257220713b1a931",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Preview/ObstacleVisualizer.cs": {
+    "mtime": 1791227841.1394236,
+    "seen": 1791395116.9971964,
+    "ast_hash": "c9fae36c8bc50bd21a40ee9ecededc6f",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/Preview/RoutePreviewDrawer.cs": {
+    "mtime": 1791394980.3823738,
+    "seen": 1791395116.9971974,
+    "ast_hash": "2b2a5605cd2de5e64cc1c8115b8b25dd",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Revit/SmartMepRouter.Revit.csproj": {
+    "mtime": 1791223524.2328515,
+    "seen": 1791395116.997198,
+    "ast_hash": "19e70e77faf4cb15a722eff7c017cc34",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.UI/Settings/SettingsStore.cs": {
+    "mtime": 1791394916.2701964,
+    "seen": 1791395116.9971988,
+    "ast_hash": "2b49ee559918e98e516cf41e942dc304",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.UI/Settings/UserSettings.cs": {
+    "mtime": 1791395866.55324,
+    "seen": 1791396932.6602998,
+    "ast_hash": "fa623167397f1d5aca2590db74d121f5",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.UI/SmartMepRouter.UI.csproj": {
+    "mtime": 1791212444.9155877,
+    "seen": 1791395116.9972,
+    "ast_hash": "c48b5bfe3c4497cc6f5e061165613a3d",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.UI/Themes/Tokens.Dark.xaml": {
+    "mtime": 1791395256.0448458,
+    "seen": 1791396932.6603034,
+    "ast_hash": "cebf14afa7f221fa15c2d082345d18b2",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.UI/ViewModels/MainViewModel.cs": {
+    "mtime": 1791655644.703112,
+    "seen": 1791655732.0202594,
+    "ast_hash": "5c86bb19cb19f05a2f64099d8f22c566",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.UI/Views/MainView.xaml": {
+    "mtime": 1791399848.1152804,
+    "seen": 1791655732.0202606,
+    "ast_hash": "0cd8a151649f061c0e1337bc55609e63",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.UI/Views/MainView.xaml.cs": {
+    "mtime": 1791395292.901217,
+    "seen": 1791396932.6603124,
+    "ast_hash": "3904bdec55064596e82314c3174bd14f",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Bench/Program.cs": {
+    "mtime": 1791397324.2095885,
+    "seen": 1791397472.4454095,
+    "ast_hash": "43abb69f4ce71ccbad578bab1a8528ce",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Bench/SmartMepRouter.Bench.csproj": {
+    "mtime": 1791212252.4894605,
+    "seen": 1791395116.997205,
+    "ast_hash": "a2c0ed1fa5843bb6240d7cc4e3e7fb2f",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/CancellationAndSettingsTests.cs": {
+    "mtime": 1791395038.851993,
+    "seen": 1791395116.997206,
+    "ast_hash": "d47dca4f1d09c4c53b7a2b1dfd4123b3",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/EndpointAlignerTests.cs": {
+    "mtime": 1791228944.6933446,
+    "seen": 1791395116.9972064,
+    "ast_hash": "43f3a69dde6e2a5e1172c61eccdad4b3",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/ExtractionAndConnectorTests.cs": {
+    "mtime": 1791227874.646876,
+    "seen": 1791395116.9972074,
+    "ast_hash": "f770d112b87470599bf52c7f24c84061",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/GeometryTests.cs": {
+    "mtime": 1791213039.9254062,
+    "seen": 1791395116.997208,
+    "ast_hash": "f7e123baaed6a9420b70c95a5e203961",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/MinHeapTests.cs": {
+    "mtime": 1791213031.6333916,
+    "seen": 1791395116.9972086,
+    "ast_hash": "1433f03cf414ff39385e69372bf7783a",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/ObstacleTests.cs": {
+    "mtime": 1791220116.48487,
+    "seen": 1791395116.9972093,
+    "ast_hash": "51d4d391e4d7453b61ca1f8e3bd0fba5",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/PathSimplifierTests.cs": {
+    "mtime": 1791213046.312976,
+    "seen": 1791395116.99721,
+    "ast_hash": "8e062f0bbefc4fe48f649ebce6992d27",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/PropertyAndBenchmarkTests.cs": {
+    "mtime": 1791220137.0331106,
+    "seen": 1791395116.997211,
+    "ast_hash": "f76bfbeb182238272b829f4debfc5eaf",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/RouterTests.cs": {
+    "mtime": 1791213099.143193,
+    "seen": 1791395116.9972117,
+    "ast_hash": "22fa318268c6e1a158bbe3feb7c61e09",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/SceneTests.cs": {
+    "mtime": 1791220124.2607007,
+    "seen": 1791395116.9972122,
+    "ast_hash": "2099357bb364ae4af6a6841481648724",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/SmartMepRouter.Core.Tests.csproj": {
+    "mtime": 1791395047.125007,
+    "seen": 1791395116.997213,
+    "ast_hash": "77ff505895119843cc175ba017df18f7",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/UnitsTests.cs": {
+    "mtime": 1791212247.2140942,
+    "seen": 1791395116.9972136,
+    "ast_hash": "dbe27ff7f6c8ae3c15cb9375312ab6dd",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1791655662.9707193,
+    "seen": 1791655732.0202887,
+    "ast_hash": "3aae6094a0fc48581f15fcbd92a23813",
+    "semantic_hash": ""
+  },
+  "architecture.md": {
+    "mtime": 1791152260.5771966,
+    "seen": 1791395116.997215,
+    "ast_hash": "e22ca3764fe3ec6fb4a3a51b2595e592",
+    "semantic_hash": ""
+  },
+  "design.md": {
+    "mtime": 1791152260.6188319,
+    "seen": 1791395116.9972157,
+    "ast_hash": "2ac3bb2724c46f211c89c39bee64c988",
+    "semantic_hash": ""
+  },
+  "master.md": {
+    "mtime": 1791399218.9906063,
+    "seen": 1791655732.0202956,
+    "ast_hash": "5a00be3411d1f118fc11c7af369902e8",
+    "semantic_hash": ""
+  },
+  "memory.md": {
+    "mtime": 1791400154.554237,
+    "seen": 1791655732.020297,
+    "ast_hash": "d01cd62666d07e67b3fb92fc340b1b52",
+    "semantic_hash": ""
+  },
+  "phases.md": {
+    "mtime": 1791400141.1683152,
+    "seen": 1791655732.020298,
+    "ast_hash": "b33fd3985ef7f4acc1b02f9278be537b",
+    "semantic_hash": ""
+  },
+  "prd.md": {
+    "mtime": 1791152260.5681882,
+    "seen": 1791395116.9972188,
+    "ast_hash": "5ac9c623f643c2844d0186697977628a",
+    "semantic_hash": ""
+  },
+  "rules.md": {
+    "mtime": 1791152260.5877209,
+    "seen": 1791395116.9972193,
+    "ast_hash": "5361e1a039e8bad607ada4205b3dc976",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Diagnostics/FailureReasonCode.cs": {
+    "mtime": 1791396413.403104,
+    "seen": 1791396932.6601832,
+    "ast_hash": "e383190afbf8a969bc6533f3832efe56",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Diagnostics/FailureReport.cs": {
+    "mtime": 1791396427.2265105,
+    "seen": 1791396932.6601872,
+    "ast_hash": "ab8757a09552ad4afac9689cd50e01a5",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Post/FittingFeasibility.cs": {
+    "mtime": 1791400038.57924,
+    "seen": 1791655732.0201874,
+    "ast_hash": "c81d9ad61ee58a3ee52ad0239fe770b2",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Search/CorridorWideningRouter.cs": {
+    "mtime": 1791396612.607049,
+    "seen": 1791396932.6602368,
+    "ast_hash": "564a16d3570d1687ffe79e7888dec00a",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.UI/Themes/Tokens.Light.xaml": {
+    "mtime": 1791395259.5556607,
+    "seen": 1791396932.6603048,
+    "ast_hash": "00a38a21bc2508d93c9d8bbd800b3878",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/FabricationConstraintsTests.cs": {
+    "mtime": 1791396047.8403084,
+    "seen": 1791396932.6603253,
+    "ast_hash": "af2a88f897ff2e55c6529467e593c013",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/HardeningAndFailureTests.cs": {
+    "mtime": 1791396846.4536848,
+    "seen": 1791396932.6603353,
+    "ast_hash": "0074b5b82a236d1ae2291f73b044e031",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Scenes/RealWorldScenarios.cs": {
+    "mtime": 1791397307.7421348,
+    "seen": 1791397472.4453535,
+    "ast_hash": "491ace2ec91ba3cd03722f6c5506fd53",
+    "semantic_hash": ""
+  },
+  "src/SmartMepRouter.Core/Spatial/WastedSpaceAnalyzer.cs": {
+    "mtime": 1791397079.5454347,
+    "seen": 1791397472.4453773,
+    "ast_hash": "4aa98b61f2d1ab40baadb8dd35416b4f",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/EvaluationAndAblationTests.cs": {
+    "mtime": 1791397358.528274,
+    "seen": 1791397472.445413,
+    "ast_hash": "0a6489e25378bc17caf6b042bbb666c1",
+    "semantic_hash": ""
+  },
+  "scripts/deploy.ps1": {
+    "mtime": 1791398961.855818,
+    "seen": 1791655732.020159,
+    "ast_hash": "08e00f485f68c73fea51c1086548bf73",
+    "semantic_hash": ""
+  },
+  "scripts/uninstall.ps1": {
+    "mtime": 1791398808.1355016,
+    "seen": 1791655732.0201623,
+    "ast_hash": "cbb98771c983b6157e3138b778b18061",
+    "semantic_hash": ""
+  },
+  "tests/SmartMepRouter.Core.Tests/FortyFiveDegreeRoutingTests.cs": {
+    "mtime": 1791400057.4924421,
+    "seen": 1791655732.020273,
+    "ast_hash": "21d11e91415535adae8a1296305d4d1b",
+    "semantic_hash": ""
+  },
+  "docs/DEMO_GUIDE.md": {
+    "mtime": 1791399012.2552834,
+    "seen": 1791655732.0202928,
+    "ast_hash": "a32dafd9b928df34cea78da382b40151",
+    "semantic_hash": ""
+  },
+  "docs/PITCH_NOTES.md": {
+    "mtime": 1791399035.5149841,
+    "seen": 1791655732.0202944,
+    "ast_hash": "5771d6729e65dfe9a02b6a8e25b34c63",
+    "semantic_hash": ""
+  }
+}

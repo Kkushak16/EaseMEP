@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using SmartMepRouter.Core.Diagnostics;
 using SmartMepRouter.Core.Geometry;
 
 namespace SmartMepRouter.Core.Search
@@ -18,8 +19,10 @@ namespace SmartMepRouter.Core.Search
         public int NodesExpanded { get; }
         public double SearchTimeMs { get; }
         public string Message { get; }
+        public FailureReport? FailureReport { get; }
 
         public bool IsSuccess => Status == RoutingStatus.Success;
+        public IReadOnlyList<string> BlockingElementIds => FailureReport?.BlockingElementIds ?? Array.Empty<string>();
 
         public RouteResult(
             RoutingStatus status,
@@ -28,7 +31,8 @@ namespace SmartMepRouter.Core.Search
             int bendCount = 0,
             int nodesExpanded = 0,
             double searchTimeMs = 0.0,
-            string? message = null)
+            string? message = null,
+            FailureReport? failureReport = null)
         {
             Status = status;
             Points = points ?? Array.Empty<Vec3>();
@@ -37,12 +41,27 @@ namespace SmartMepRouter.Core.Search
             SegmentCount = Points.Count > 1 ? Points.Count - 1 : 0;
             NodesExpanded = nodesExpanded;
             SearchTimeMs = searchTimeMs;
-            Message = message ?? DefaultMessageForStatus(status);
+            FailureReport = failureReport;
+            Message = message ?? failureReport?.Message ?? DefaultMessageForStatus(status);
         }
 
-        public static RouteResult Failure(RoutingStatus status, string? message = null, int nodesExpanded = 0, double searchTimeMs = 0.0)
+        public static RouteResult Failure(
+            RoutingStatus status,
+            string? message = null,
+            int nodesExpanded = 0,
+            double searchTimeMs = 0.0,
+            FailureReport? failureReport = null)
         {
-            return new RouteResult(status, null, 0.0, 0, nodesExpanded, searchTimeMs, message);
+            return new RouteResult(status, null, 0.0, 0, nodesExpanded, searchTimeMs, message, failureReport);
+        }
+
+        public static RouteResult FromFailureReport(
+            RoutingStatus status,
+            FailureReport failureReport,
+            int nodesExpanded = 0,
+            double searchTimeMs = 0.0)
+        {
+            return new RouteResult(status, null, 0.0, 0, nodesExpanded, searchTimeMs, failureReport.Message, failureReport);
         }
 
         private static string DefaultMessageForStatus(RoutingStatus status)

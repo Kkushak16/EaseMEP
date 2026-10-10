@@ -158,6 +158,20 @@ namespace SmartMepRouter.Core.Spatial
             return new ObbObstacle($"{Id}_inflated", Center, HalfExtents + delta, AxisX, AxisY, AxisZ);
         }
 
+        public IObstacle Inflate(double marginX, double marginY, double marginZ)
+        {
+            double dx = Math.Abs(AxisX.X) * marginX + Math.Abs(AxisX.Y) * marginY + Math.Abs(AxisX.Z) * marginZ;
+            double dy = Math.Abs(AxisY.X) * marginX + Math.Abs(AxisY.Y) * marginY + Math.Abs(AxisY.Z) * marginZ;
+            double dz = Math.Abs(AxisZ.X) * marginX + Math.Abs(AxisZ.Y) * marginY + Math.Abs(AxisZ.Z) * marginZ;
+            Vec3 delta = new Vec3(dx, dy, dz);
+            return new ObbObstacle($"{Id}_inflated", Center, HalfExtents + delta, AxisX, AxisY, AxisZ);
+        }
+
+        public IObstacle Inflate(Vec3 marginsFeet)
+        {
+            return Inflate(marginsFeet.X, marginsFeet.Y, marginsFeet.Z);
+        }
+
         public Vec3 WorldToLocal(Vec3 worldPt)
         {
             Vec3 d = worldPt - Center;

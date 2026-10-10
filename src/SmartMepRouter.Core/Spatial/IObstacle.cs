@@ -37,8 +37,25 @@ namespace SmartMepRouter.Core.Spatial
         /// <summary>
         /// Returns an inflated copy of this obstacle incorporating clearance, insulation, and duct half-extent.
         /// </summary>
-        /// <param name="marginFeet">Total inflation margin in decimal feet.</param>
+        /// <param name="marginFeet">Total isotropic inflation margin in decimal feet.</param>
         /// <returns>A new inflated obstacle.</returns>
         IObstacle Inflate(double marginFeet);
+
+        /// <summary>
+        /// Returns an anisotropically inflated copy of this obstacle with independent X, Y, and Z margins.
+        /// Used for direction-dependent inflation (FR-17).
+        /// </summary>
+        /// <param name="marginX">Inflation margin along X axis in decimal feet.</param>
+        /// <param name="marginY">Inflation margin along Y axis in decimal feet.</param>
+        /// <param name="marginZ">Inflation margin along Z axis in decimal feet.</param>
+        /// <returns>A new anisotropically inflated obstacle.</returns>
+        IObstacle Inflate(double marginX, double marginY, double marginZ);
+
+        /// <summary>
+        /// Returns an anisotropically inflated copy of this obstacle with vector margins.
+        /// </summary>
+        /// <param name="marginsFeet">Vector of inflation margins in decimal feet.</param>
+        /// <returns>A new anisotropically inflated obstacle.</returns>
+        IObstacle Inflate(Vec3 marginsFeet);
     }
 }

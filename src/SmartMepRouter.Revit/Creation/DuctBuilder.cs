@@ -63,6 +63,7 @@ namespace SmartMepRouter.Revit.Creation
 
             var createdDuctIds = new List<ElementId>();
             var createdFittingIds = new List<ElementId>();
+            var warnings = new List<string>();
 
             using (var tg = new TransactionGroup(doc, "Smart MEP Router — Generate Ductwork"))
             {
@@ -72,8 +73,9 @@ namespace SmartMepRouter.Revit.Creation
                 {
                     using (var trans = new Transaction(doc, "Create Ducts and Elbows"))
                     {
+                        var failuresPreprocessor = new RoutingFailuresPreprocessor();
                         var failureHandling = trans.GetFailureHandlingOptions();
-                        failureHandling.SetFailuresPreprocessor(new RoutingFailuresPreprocessor());
+                        failureHandling.SetFailuresPreprocessor(failuresPreprocessor);
                         failureHandling.SetClearAfterRollback(true);
                         trans.SetFailureHandlingOptions(failureHandling);
 
@@ -139,13 +141,16 @@ namespace SmartMepRouter.Revit.Creation
                                 }
                                 catch (Exception fittingEx)
                                 {
-                                    // Log or abort if fitting placement fails
                                     trans.RollBack();
                                     tg.RollBack();
-                                    return DuctCreationResult.Failed($"Fitting placement failed at corner {i + 1}: {fittingEx.Message}");
+                                    return DuctCreationResult.Failed(
+                                        $"Fitting placement failed at corner {i + 1}: {fittingEx.Message}",
+                                        failuresPreprocessor.ErrorDescriptions,
+                                        failuresPreprocessor.FailingElementIds);
                                 }
                             }
                         }
+
 
                         // 3. Connect to terminal connectors if provided (FR-18)
                         if (options.StartTerminalConnector != null && createdDucts.Count > 0)
@@ -153,7 +158,14 @@ namespace SmartMepRouter.Revit.Creation
                             Connector? startDuctConn = GetClosestConnector(createdDucts[0], routePoints[0].ToXyz());
                             if (startDuctConn != null && !startDuctConn.IsConnected)
                             {
-                                try { startDuctConn.ConnectTo(options.StartTerminalConnector); } catch { }
+                                try
+                                {
+                                    startDuctConn.ConnectTo(options.StartTerminalConnector);
+                                }
+                                catch (Exception ex)
+                                {
+                                    warnings.Add($"Start terminal connector could not be linked: {ex.Message}");
+                                }
                             }
                         }
 
@@ -162,7 +174,14 @@ namespace SmartMepRouter.Revit.Creation
                             Connector? endDuctConn = GetClosestConnector(createdDucts[createdDucts.Count - 1], routePoints[routePoints.Count - 1].ToXyz());
                             if (endDuctConn != null && !endDuctConn.IsConnected)
                             {
-                                try { endDuctConn.ConnectTo(options.EndTerminalConnector); } catch { }
+                                try
+                                {
+                                    endDuctConn.ConnectTo(options.EndTerminalConnector);
+                                }
+                                catch (Exception ex)
+                                {
+                                    warnings.Add($"End terminal connector could not be linked: {ex.Message}");
+                                }
                             }
                         }
 
@@ -170,12 +189,15 @@ namespace SmartMepRouter.Revit.Creation
                         if (status != TransactionStatus.Committed)
                         {
                             tg.RollBack();
-                            return DuctCreationResult.Failed("Revit transaction did not commit cleanly.");
+                            string detail = failuresPreprocessor.ErrorDescriptions.Count > 0
+                                ? string.Join("; ", failuresPreprocessor.ErrorDescriptions)
+                                : "Revit transaction did not commit cleanly.";
+                            return DuctCreationResult.Failed(detail, failuresPreprocessor.ErrorDescriptions, failuresPreprocessor.FailingElementIds, warnings);
                         }
                     }
 
                     tg.Assimilate();
-                    return DuctCreationResult.Succeeded(createdDuctIds, createdFittingIds);
+                    return DuctCreationResult.Succeeded(createdDuctIds, createdFittingIds, warnings);
                 }
                 catch (Exception ex)
                 {

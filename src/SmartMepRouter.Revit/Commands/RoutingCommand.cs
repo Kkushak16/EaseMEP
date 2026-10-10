@@ -3,6 +3,7 @@ using System.Windows.Interop;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using SmartMepRouter.Revit.Controller;
 using SmartMepRouter.UI.Views;
 
 namespace SmartMepRouter.Revit.Commands
@@ -16,6 +17,7 @@ namespace SmartMepRouter.Revit.Commands
     public class RoutingCommand : IExternalCommand
     {
         private static MainView? _activeWindow;
+        private static RoutingController? _activeController;
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
@@ -35,7 +37,8 @@ namespace SmartMepRouter.Revit.Commands
                         };
                     }
 
-                    _activeWindow.Closed += (sender, args) => { _activeWindow = null; };
+                    _activeController = new RoutingController(_activeWindow);
+                    _activeWindow.Closed += (sender, args) => { _activeWindow = null; _activeController = null; };
                     _activeWindow.Show();
                 }
                 else

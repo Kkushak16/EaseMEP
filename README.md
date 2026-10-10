@@ -3,9 +3,10 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Platform-Autodesk%20Revit%202024--2027-blue?style=for-the-badge&logo=autodesk" alt="Revit 2024-2027" />
   <img src="https://img.shields.io/badge/.NET%20Framework-4.8%20%7C%208.0-purple?style=for-the-badge&logo=dotnet" alt=".NET 4.8 / 8.0" />
-  <img src="https://img.shields.io/badge/Core%20Tests-40%20Passed%20(100%25)-success?style=for-the-badge&logo=checkmarx" alt="Tests 40 Passed" />
-  <img src="https://img.shields.io/badge/Benchmark%20Success-50%2F50%20(100%25)-brightgreen?style=for-the-badge" alt="Benchmark 100%" />
+  <img src="https://img.shields.io/badge/Core%20Tests-74%20Passed%20(100%25)-success?style=for-the-badge&logo=checkmarx" alt="Tests 74 Passed" />
+  <img src="https://img.shields.io/badge/Benchmark%20Success-53%2F53%20(100%25)-brightgreen?style=for-the-badge" alt="Benchmark 100%" />
   <img src="https://img.shields.io/badge/Collisions-0-brightgreen?style=for-the-badge" alt="0 Collisions" />
+  <img src="https://img.shields.io/badge/Paper%20Gate-GO%20(Auton%20in%20Constr)-orange?style=for-the-badge" alt="Paper Gate GO" />
 </p>
 
 ---
@@ -138,36 +139,53 @@ Evaluated across **50 procedurally generated obstacle scenes** containing struct
 
 ---
 
-## 🛠️ Build & Installation
+## 🛠️ Build & Rapid Installation
 
 ### Prerequisites
 - **.NET 8 SDK** (8.0.400+) installed.
 - **Autodesk Revit 2024, 2025, 2026, or 2027**.
 
-### 1. Build Solution
+### 1-Click Install (Revit 2024–2027)
+Double-click `install.bat` or run:
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\deploy.ps1 -RevitVersion all
+```
+*Automatically compiles the solution and deploys add-in manifests and assemblies to `%APPDATA%\Autodesk\Revit\Addins\<ver>\`.*
+
+### Manual Build Solution
 ```powershell
 # Restore and compile across both net48 and net8.0-windows targets
 dotnet build SmartMepRouter.sln -c Debug
 ```
-*Note: A post-build target automatically copies assemblies and `SmartMepRouter.addin` into `%APPDATA%\Autodesk\Revit\Addins\2027\` (or `2024`).*
 
-### 2. Run Automated Unit Tests
+### Run Automated Unit Tests (74 Tests)
 ```powershell
 dotnet test SmartMepRouter.sln
 ```
 Output:
 ```
-Passed! - Failed: 0, Passed: 40, Skipped: 0, Total: 40 (net8.0)
+Passed! - Failed: 0, Passed: 74, Skipped: 0, Total: 74 (net8.0)
 ```
 
-### 3. Run Benchmark Suite
+### Run Scientific Benchmark Suite (53 Scenes)
 ```powershell
 dotnet run --project tests/SmartMepRouter.Bench
 ```
 
 ---
 
-## 🧭 Roadmap & Progress
+## 📖 Documentation & Guides
+
+- [Demo Walkthrough & 3-Minute Video Script](file:///d:/Antigravity/EaseMEP/docs/DEMO_GUIDE.md)
+- [Pitch Notes & Measured Scoreboard](file:///d:/Antigravity/EaseMEP/docs/PITCH_NOTES.md)
+- [System Architecture](file:///d:/Antigravity/EaseMEP/architecture.md)
+- [UI & Visual Tokens Design](file:///d:/Antigravity/EaseMEP/design.md)
+- [Product Requirements (PRD)](file:///d:/Antigravity/EaseMEP/prd.md)
+- [Phase Roadmap](file:///d:/Antigravity/EaseMEP/phases.md)
+
+---
+
+## 🧭 Roadmap & Completion Status
 
 - [x] **Phase 0 — Environment & Multi-Target Skeleton** (`net48` & `net8.0-windows`)
 - [x] **Phase 1 — Core Router & Fabrication A\*** (Deterministic 3D grid, turn penalties, stubs)
@@ -175,11 +193,11 @@ dotnet run --project tests/SmartMepRouter.Bench
 - [x] **Phase 3 — Revit Ribbon, Command & Modeless WPF Dialog** (Deployed to Revit 2027)
 - [x] **Phase 4 — Context Extraction** (Host & Linked model extraction, OBB conversion, connector reader)
 - [x] **Phase 5 — Duct Creation & Atomic Rollback** (Approach A `Duct.Create` + `NewElbowFitting` pipeline)
-- [ ] **Phase 6 — Interactive UI & Real-Time Preview** (Pick connectors via ExternalEvent, preview graphics)
-- [ ] **Phase 7 — Advanced Fabrication Constraints** (45° offsets, minimum straight run rules)
-- [ ] **Phase 8 — Hardening & Failure Diagnostics** (Root-cause blocking element ID reporting)
-- [ ] **Phase 9 — Paper & Evaluation Gate** (Real Revit MEP project benchmarks)
-- [ ] **Phase 10 — Packaging & Demo** (Installer, sample models, video demonstration)
+- [x] **Phase 6 — Interactive UI & Real-Time Preview** (Pick connectors via ExternalEvent, preview graphics)
+- [x] **Phase 7 — Fabrication Constraints** (Directional inflation, min straight run, round duct support)
+- [x] **Phase 8 — Hardening & Failure Diagnostics** (Root-cause blocking element ID reporting, corridor widening retry)
+- [x] **Phase 9 — Paper & Evaluation Gate** (Real Revit BIM scenarios, ablations, Paper Gate GO)
+- [x] **Phase 10 — Packaging & Demo** (1-click installer, demo video script, pitch notes)
 
 ---
 

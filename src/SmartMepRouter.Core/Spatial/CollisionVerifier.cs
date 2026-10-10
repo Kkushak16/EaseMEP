@@ -66,10 +66,28 @@ namespace SmartMepRouter.Core.Spatial
 
         /// <summary>
         /// Returns true if the entire path is completely free of collisions with all obstacles.
+        /// Exits immediately upon detecting the first collision without allocating collision reports.
         /// </summary>
         public static bool IsPathCollisionFree(IReadOnlyList<Vec3> waypoints, IEnumerable<IObstacle> obstacles)
         {
-            return !Verify(waypoints, obstacles).HasCollisions;
+            if (waypoints == null || waypoints.Count < 2 || obstacles == null)
+                return true;
+
+            for (int i = 0; i < waypoints.Count - 1; i++)
+            {
+                Vec3 p1 = waypoints[i];
+                Vec3 p2 = waypoints[i + 1];
+
+                foreach (var obstacle in obstacles)
+                {
+                    if (obstacle.IntersectsSegment(p1, p2))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }

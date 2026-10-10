@@ -59,6 +59,14 @@ namespace SmartMepRouter.Core.Geometry
         public double ManhattanDistanceTo(Vec3 other) =>
             Math.Abs(X - other.X) + Math.Abs(Y - other.Y) + Math.Abs(Z - other.Z);
 
+        public double Dot(Vec3 other) => X * other.X + Y * other.Y + Z * other.Z;
+
+        public Vec3 Cross(Vec3 other) =>
+            new Vec3(
+                Y * other.Z - Z * other.Y,
+                Z * other.X - X * other.Z,
+                X * other.Y - Y * other.X);
+
         public Vec3 Normalize()
         {
             double len = Length();
@@ -78,9 +86,13 @@ namespace SmartMepRouter.Core.Geometry
         {
             unchecked
             {
-                int hash = (int)(Math.Round(X / Tolerance) * 397);
-                hash = (hash * 397) ^ (int)(Math.Round(Y / Tolerance) * 397);
-                hash = (hash * 397) ^ (int)(Math.Round(Z / Tolerance) * 397);
+                long qx = (long)Math.Round(X / Tolerance);
+                long qy = (long)Math.Round(Y / Tolerance);
+                long qz = (long)Math.Round(Z / Tolerance);
+
+                int hash = qx.GetHashCode();
+                hash = (hash * 397) ^ qy.GetHashCode();
+                hash = (hash * 397) ^ qz.GetHashCode();
                 return hash;
             }
         }
